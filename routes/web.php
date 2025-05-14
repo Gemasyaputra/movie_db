@@ -9,3 +9,4 @@ Route::get('/', function () {
 });
 
 Route::get('/',[MovieController::class,'index'] );
+Route::get('/movie/{id}/{slug}',[MovieController::class,'detail_movie'] );
