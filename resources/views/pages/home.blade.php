@@ -24,8 +24,14 @@
         <div class="card mb-3" style="max-width: 500px;">
             <div class="row g-0">
                 <div class="col-md-4">
-                    <img src="{{ $movie['cover_image'] }}" class="img-fluid " style="border-top-left-radius: 10px; border-bottom-left-radius: 10px" alt="..."
-                    >
+                @php
+                        $cover = $movie->cover_image;
+                    @endphp
+                    @if (Str::startsWith($cover, ['http://', 'https://']))
+                        <img src="{{ $cover }}" alt="{{ $movie->title }}" class="img-fluid" style="border-top-left-radius: 10px; border-bottom-left-radius: 10px">
+                    @else
+                        <img src="{{ asset('storage/' . $cover) }}" alt="{{ $movie->title }}" class="img-fluid" style="border-top-left-radius: 10px; border-bottom-left-radius: 10px">
+                    @endif    >
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">

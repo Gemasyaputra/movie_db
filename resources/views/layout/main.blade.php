@@ -34,7 +34,7 @@
                             <a class="nav-link @yield('navhome')" href="#">home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link @yield('navwatch')" href="#">Watchlist</a>
+                            <a class="nav-link @yield('navInput')" href="/movie/create">Input movie</a>
                         </li>
                     </ul>
                     <form class="d-flex" role="search">
