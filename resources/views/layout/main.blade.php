@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,10 +9,12 @@
     <title>@yield('title')</title>
 
     <style>
-        html, body {
+        html,
+        body {
             height: 100%;
         }
-        main > .container {
+
+        main>.container {
             padding: 60px 15px 0px;
         }
     </style>
@@ -22,7 +25,8 @@
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-success">
             <div class="container">
                 <a class="navbar-brand" href="#">Akademik</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -33,14 +37,37 @@
                         <li class="nav-item">
                             <a class="nav-link @yield('navhome')" href="#">home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link @yield('navInput')" href="/movie/create">Input movie</a>
-                        </li>
+                        @auth
+                            <li class="nav-item">
+                                <a class="nav-link @yield('navInput')" href="/movie/create">Input movie</a>
+                            </li>
+                        @endauth
+
+                        @auth
+                            <li class="nav-item">
+                                <a class="nav-link disabled">{{ Auth::user()->name }}</a>
+
+                            </li>
+                        @else
+                            <li class="nav-item">
+                                <a class="nav-link @yield('navLogin')" href="/login">Login</a>
+                            </li>
+                        @endauth
+
                     </ul>
-                    <form class="d-flex" role="search">
+                    <form class="d-flex ms-auto" role="search">
                         <input class="form-control me-2" type="search" placeholder="Search">
                         <button class="btn btn-outline-light" type="submit">Search</button>
                     </form>
+                    @auth
+                        <div class="ms-3">
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="btn btn-outline-light">Logout</button>
+                            </form>
+                        </div>
+
+                    @endauth
                 </div>
             </div>
         </nav>
@@ -54,10 +81,13 @@
 
     <footer class="text-center bg-success text-white mt-auto py-2">
         <p class="mb-0" style="font-size: 14px;">
-            &copy; 2025 Company, Inc. &middot; <a href="#" class="text-white text-decoration-underline">Privacy</a> &middot; <a href="#" class="text-white text-decoration-underline">Terms</a>
+            &copy; 2025 Company, Inc. &middot; <a href="#"
+                class="text-white text-decoration-underline">Privacy</a> &middot; <a href="#"
+                class="text-white text-decoration-underline">Terms</a>
         </p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

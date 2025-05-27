@@ -31,7 +31,7 @@
                         <img src="{{ $cover }}" alt="{{ $movie->title }}" class="img-fluid" style="border-top-left-radius: 10px; border-bottom-left-radius: 10px">
                     @else
                         <img src="{{ asset('storage/' . $cover) }}" alt="{{ $movie->title }}" class="img-fluid" style="border-top-left-radius: 10px; border-bottom-left-radius: 10px">
-                    @endif    >
+                    @endif    
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
