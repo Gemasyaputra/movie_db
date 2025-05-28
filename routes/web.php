@@ -30,3 +30,11 @@ Route::post('/logout', function () {
 
     return redirect('/login');
 })->name('logout');
+
+Route::get('/list', [MovieController::class,'list']);
+
+Route::delete('/movie/{id}', [MovieController::class, 'destroy']);
+
+route::get('/movies/{id}/edit', [MovieController::class, 'edit'])->middleware('auth');
+
+route::put('/movie/{id}', [MovieController::class, 'update']);

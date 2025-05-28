@@ -53,4 +53,52 @@ public function store(Request $request)
     return redirect('/')->with('success', 'Movie berhasil ditambahkan!');
 }
 
+public function list(){
+   $movies = Movie::latest()->paginate(10);
+    return view('layout.List', compact('movies'));    
+
+}
+
+public function destroy($id)
+{
+    $movie = Movie::findOrFail($id);
+    $movie->delete();
+
+    return redirect('/list')->with('success', 'Movie berhasil dihapus');
+}
+
+public function edit($id)
+{
+    $movie = Movie::findOrFail($id);
+    $categories = Category::all();
+    return view('layout.movie_form_update', compact('movie', 'categories'));
+
+
+}
+
+public function update(Request $request, $id)
+{
+    $movie = Movie::findOrFail($id);
+
+    // Validasi
+    $validated = $request->validate([
+        'title' => 'required|string|max:255',
+        'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'synopsis' => 'nullable|string',
+        'year' => 'required|integer|min:1900|max:'.date('Y'),
+        'actors' => 'required|string',
+        'category_id' => 'required|exists:categories,id',
+    ]);
+
+    // Simpan gambar baru jika ada
+    if ($request->file('cover_image')) {
+        $coverPath = $request->file('cover_image')->store('covers', 'public');
+        $validated['cover_image'] = $coverPath;
+    }
+
+    // Simpan ke database
+    $movie->update($validated);
+
+    return redirect('/list')->with('success', 'Movie berhasil diupdate');
+}
 }

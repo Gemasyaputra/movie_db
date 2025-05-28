@@ -35,7 +35,7 @@
                             <a class="nav-link @yield('navMovie')" href="#">MOVIE-DB</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link @yield('navhome')" href="#">home</a>
+                            <a class="nav-link @yield('navhome')" href="/">home</a>
                         </li>
                         @auth
                             <li class="nav-item">
