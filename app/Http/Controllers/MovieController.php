@@ -11,7 +11,18 @@ class MovieController extends Controller
 {
     public function index()
     {
-        $movies = Movie::latest()->paginate(6);
+        $search = request('search');
+        if ($search) {
+            $movies = Movie::where('title', 'LIKE', "%{$search}%")
+                ->orWhere('year', 'LIKE', "%{$search}%")
+                ->orWhere('actors', 'LIKE', "%{$search}%")
+                ->orWhere('synopsis', 'LIKE', "%{$search}%")
+                ->latest()
+                ->paginate(6);
+        } else {
+            $movies = Movie::latest()->paginate(6);
+        }
+
         return view('pages.home', compact('movies'));
     }
 
