@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MovieController;
+use App\Http\Middleware\RoleAdmin;
 
 
 Route::get('/', function () {
@@ -35,6 +36,6 @@ Route::get('/list', [MovieController::class,'list']);
 
 Route::delete('/movie/{id}', [MovieController::class, 'destroy']);
 
-route::get('/movies/{id}/edit', [MovieController::class, 'edit'])->middleware('auth');
+route::get('/movies/{id}/edit', [MovieController::class, 'edit'])->middleware('auth', RoleAdmin::class);
 
-route::put('/movie/{id}', [MovieController::class, 'update']);
+route::put('/movie/{id}', [MovieController::class, 'update'])->middleware('auth', RoleAdmin::class);
